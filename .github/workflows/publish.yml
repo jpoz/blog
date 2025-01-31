@@ -35,7 +35,7 @@ jobs:
         run: bun install nuekit --global
 
       - name: Build with Neukit
-        run: neukit build -p
+        run: neu build -p
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
