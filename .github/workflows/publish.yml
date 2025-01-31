@@ -20,7 +20,7 @@ jobs:
 
       - name: Build with Neukit
         run: |
-          $HOME/.bun/bin/neu build -p
+          neu build -p
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
