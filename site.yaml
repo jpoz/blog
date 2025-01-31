@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://json.schemastore.org/nuejs-site.json
+
+globals: ["@global"]
+libs: ["@library"]
+
+view_transitions: true
+native_css_nesting: true
+inline_css: true
+sections: true
+
+title_template: "jpoz / %s"
+og_image: /img/og.png
+author: James Pozdena
+favicon: /img/favicon.png
+description: Minimalist, designer, and UX developer
+port: 8083
+
+# OG image
+origin: https://blog.jpoz.net
+og: /img/og.jpg
+
+
+navigation:
+  header:
+    - jpoz: /
+    # - Contact: /contact/
+
+  footer:
+    - © James Pozdena: /
+
+    - image: /img/twitter.svg
+      url: //x.com/jpoz
+      alt: Twitter (X) profile
+      size: 22 x 22
+
+    - image: /img/github.svg
+      url: //github.com/jpoz
+      alt: Github Projects
+      size: 22 x 22
+
+    - image: /img/linkedin.svg
+      url: //linkedin.com/in/jpozdena
+      alt: LinkedIn profile
+      size: 22 x 22
