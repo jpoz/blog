@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<title>jpoz / Why we wrote our own XML/JSON parsers for LLMs</title>
+<meta name="generator" content="Nue v1.0.0-RC.2 (nuejs.org)">
+<meta name="date.updated" content="2025-01-31T23:32:38.187Z">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LLMs typically generate unstructured text optimized for human readability. But when you&apos;re building real-world applications, you may need that text to follow strict formats like XML and JSON. This created an interesting challenge for our team: how do we maintain the natural, high-quality output of LLMs while ensuring it fits into structured data formats? The solution we developed involved creating custom XML and JSON parsers designed specifically for LLM output. This approach has two key innovations:">
+<meta name="author" content="James Pozdena">
+<meta property="og:title" content="Why we wrote our own XML/JSON parsers for LLMs">
+<meta property="og:description" content="LLMs typically generate unstructured text optimized for human readability. But when you&apos;re building real-world applications, you may need that text to follow strict formats like XML and JSON. This created an interesting challenge for our team: how do we maintain the natural, high-quality output of LLMs while ensuring it fits into structured data formats? The solution we developed involved creating custom XML and JSON parsers designed specifically for LLM output. This approach has two key innovations:">
+<meta property="og:image" content="https://blog.jpoz.net/img/og.png">
+<meta property="article:published_time" content="2025-1-6">
+<meta name="nue:components" content=" ">
+<link rel="icon" type="image/png" href="/img/favicon.png">
+<style>:root{--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-300:#d1d5db;--gray-500:#6b7280;--gray-800:#1f2937;--gray-900:#111827;--main-500:#3b82f6;--main-600:#2563eb;--marker:#ffff7a}*,:before,:after{box-sizing:border-box}ul,ol,figure,pre{margin:2em 0}body{max-width:1000px;margin:0 auto;padding:2% 5%;&>header nav{justify-content:space-between;margin-bottom:4rem;display:flex;&>a:first-child{background:url(/img/avatar-rounded.png) 0/2em no-repeat;padding-left:2.5em}& a{padding:1em 0}}& article{&>header{margin-bottom:2rem}&>section{max-width:700px;margin:0 auto}}&>footer{border-top:1px solid var(--gray-200);margin-top:8rem;& nav{gap:.5em;padding:1rem 0;display:flex;& a{opacity:.8}& a:hover{opacity:1}& a:nth-child(2){margin-left:auto}}}}body{font-family:-apple-system,BlinkMacSystemFont,Avenir Next,Segoe UI,Roboto}h1{letter-spacing:-.03em;font-size:2.6rem;&,&+p{text-align:center;text-wrap:balance;max-width:40rem;margin:0 auto .2em}&+p{margin-bottom:2em;font-size:1.15em;font-weight:300}}a{text-decoration:none;nav &{color:var(--gray-900);font-weight:500;&[aria-current]{text-decoration:2px underline var(--main-500);text-underline-offset:8px}}}p,li{color:var(--gray-500);line-height:1.65;& strong{color:var(--gray-800)}}:root{--pink-gradient:linear-gradient(#e879f9,#ec4899);--blue-gradient:linear-gradient(#0ea5e9,#67e8f9)}.pink,.blue{background-image:var(--pink-gradient);border-radius:.8em;margin:1.5em 0 2em;padding:3em 0 0 3em;overflow:hidden;& pre{margin:0;padding:2em}&>*{border-radius:.6em 0 0}}.blue{background-image:var(--blue-gradient)}article a{text-decoration:underline var(--main-500)1px;text-underline-offset:3px;color:var(--gray-800);font-weight:500;&:hover{text-decoration-color:var(--main-600);color:#000;text-decoration-thickness:2px}}h2{color:var(--gray-900);margin:4em 0 0;font-size:1.1rem;font-weight:500}li{text-wrap:balance;margin-bottom:1em}pre{--glow-padding:2em;font-size:105%}img,pre{border-radius:8px}img{max-width:100%;height:auto}blockquote{border-left:5px solid var(--gray-900);text-wrap:balance;margin:2.5em 0;padding-left:1.5em;& p{color:var(--gray-900);font-size:140%;font-weight:600;line-height:1.5}& strong{background-color:var(--marker);font-weight:inherit;margin-inline:-.2em;padding:.1em .2em}}header,h1,h1+p,h1+p+*{filter:none;opacity:1;transition:opacity .5s,filter .7s;@starting-style{&{filter:blur(10px);opacity:0}}}h1{transition-delay:.1s}h1+p{transition-delay:.2s}h1+p+*{transition-delay:.4s}article{view-transition-name:article}::view-transition-old(article){transition:all .8s;transform:scale(1.2)translateY(2em)}</style>
+<script src="/@nue/view-transitions.js" type="module"></script>
+    
+  </head>
+
+  <body>
+    
+    <header>
+  <nav><a href="/">jpoz</a></nav>
+</header>
+    
+    <main>
+    
+
+    <article>
+      <header>
+  <h1>Why we wrote our own XML/JSON parsers for LLMs</h1>
+  <p>
+    <time datetime="2025-01-06T00:00:00.000Z">January 6, 2025</time>
+  </p>
+
+  <img width="1000" height="800" src="img/xml-json.png" alt="Hero image for Why we wrote our own XML/JSON parsers for LLMs">
+</header>
+      <section><p>LLMs typically generate unstructured text optimized for human readability. But when you&apos;re building real-world applications, you may need that text to follow strict formats like XML and JSON. This created an interesting challenge for our team: how do we maintain the natural, high-quality output of LLMs while ensuring it fits into structured data formats? The solution we developed involved creating custom XML and JSON parsers designed specifically for LLM output. This approach has two key innovations:</p>
+<ol><li><p><strong>Error Tolerance:</strong> Instead of failing when encountering minor syntax errors (like missing tags or trailing commas), our parsers intelligently reconstruct the intended structure.</p></li>
+<li><p><strong>Streaming Capability:</strong> The parsers can stream back segments of structured output in real-time, rather than waiting for the entire response to process.</p></li></ol>
+<p>This solution lets us maintain the high-quality, natural language output of LLMs while ensuring it works reliably in structured data formats. It gives us the best of both worlds - we can use any LLM while still getting dependable structured output for our applications.</p>
+<p>One of the key challenges when working with LLM-generated structured output is handling those almost-perfect responses. The LLM returns perfectly valid XML or JSON, except for that one missing closing tag or that trailing comma. While a human can instantly understand the intended structure, traditional parsers throw errors and halt execution. This is why we developed parsers with built-in error tolerance. Instead of failing on minor syntactic issues, our solution intelligently reconstructs the intended structure, maintaining system stability without compromising the semantic content. This approach has been particularly valuable in production environments where robustness is crucial.</p>
+<p>The second major advantage of our custom parsers is their ability to enhance user experience by streaming back sections of a structured output. For example, let&apos;s say we have a response with an explanation of what&apos;s happening, followed by the actual updates, and finally a conclusion. Rather than making users wait for the entire response to complete processing, we can stream back segments in real-time. This means users see meaningful content immediately, starting with the explanation, while the system processes the more complex structured components. We&apos;ve found this approach dramatically improves perceived responsiveness and user engagement, especially during longer operations where traditional approaches would leave users staring at a blank screen.</p>
+<p>While there are LLMs that guarantee structured output, like OpenAI&apos;s, we discovered these come with meaningful trade-offs in output quality. In our testing, models optimized for strict structural compliance often produce less nuanced, less natural writing compared to their unconstrained counterparts. I realize this is entirely subjective, but with our custom parser, we don&apos;t need to choose - we can let users use any LLM and not restrict them to only LLMs that support structured outputs.</p>
+<p>Our parsing solution has significantly improved the developer experience when working with LLM outputs. It provides the reliability needed for production systems while maintaining the high-quality output that makes LLMs valuable. If there&apos;s interest, we&apos;re considering open-sourcing our parsers. Share your thoughts in the comments.</p>
+<p><em>Written with Revi.so</em></p></section>
+      
+    </article>
+
+    
+  </main>
+    <footer>
+  <nav><a href="/">&#xa9; James Pozdena</a>
+<a href="//x.com/jpoz"><img src="/img/twitter.svg" width="22" height="22" alt="Twitter (X) profile"></a>
+<a href="//github.com/jpoz"><img src="/img/github.svg" width="22" height="22" alt="Github Projects"></a>
+<a href="//linkedin.com/in/jpozdena"><img src="/img/linkedin.svg" width="22" height="22" alt="LinkedIn profile"></a></nav>
+</footer>
+    
+  </body>
+
+</html>
