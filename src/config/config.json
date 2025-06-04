@@ -28,5 +28,8 @@
   },
 
   "contactinfo": {
+    "address": "355 S Grand Ave <br/> Los Angeles, CA 90071",
+    "email": "info@example.com",
+    "phone": "+800 567 1234"
   }
 }
