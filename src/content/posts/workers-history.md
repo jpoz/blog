@@ -10,7 +10,6 @@ tags: ["xml", "json", "go"]
 draft: false
 ---
 
-# Who Gets the Money When the Machine Gets Faster?
 
 ### What seven productivity revolutions tell us about AI and the future of software engineering
 
