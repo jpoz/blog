@@ -1,3 +1,15 @@
+---
+title: who gets the money when machines get faster?
+meta_title: ""
+description: "meta description"
+date: 2026-02-16T05:00:00Z
+image: "/images/posts/02.png"
+categories: ["codez"]
+authors: ["jpoz"]
+tags: ["xml", "json", "go"]
+draft: false
+---
+
 # Who Gets the Money When the Machine Gets Faster?
 
 ### What seven productivity revolutions tell us about AI and the future of software engineering
