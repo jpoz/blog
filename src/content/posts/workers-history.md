@@ -3,7 +3,7 @@ title: Who gets the money when machines get faster?
 meta_title: ""
 description: "meta description"
 date: 2026-02-16T05:00:00Z
-image: "public/images/posts/4C6F3CC7-283C-4DBD-A7FA-F5B57D53DDD6.png"
+image: "/images/posts/4C6F3CC7-283C-4DBD-A7FA-F5B57D53DDD6.png"
 categories: ["thoughts"]
 authors: ["jpoz"]
 tags: ["ai"]
