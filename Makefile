@@ -14,7 +14,7 @@ install:
 	bun install nuekit --global
 
 ## Dev
-dev:
+dev: ## Run dev server.
 	nue
 
 ## Nue
