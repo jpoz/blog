@@ -1,7 +1,7 @@
 ---
-title: The Smartest AI Won’t Win. The Most Integrated One Will.
+title: Nobody Wants to Be an AI User
 meta_title: ""
-description: "The most important design decision in any AI-powered product isn’t which model to use. It’s where to put the human."
+description: "The AI products that win won't be the most intelligent. They'll be the ones that meet people where they already are."
 date: 2026-02-22T05:00:00Z
 image: "/images/posts/weave.png"
 categories: ["thoughts"]
@@ -10,86 +10,88 @@ tags: ["ai"]
 draft: false
 ---
 
-The most important design decision in any AI-powered product isn’t which model to use. It’s where to put the human.
+People don't want to become AI users. They want the things they already do to get better.
 
-Every AI product draws a line. On one side, things the system handles autonomously. On the other, moments where a person sees, decides, corrects, or approves. Most builders treat that line as a limitation, something to push outward as models get smarter. But the best products treat it as the core of the design. The question isn’t how to solve the entire problem space with AI. It’s how to pull the human in at exactly the right moment and make that moment feel effortless.
+That sounds obvious. But almost every AI product being built right now ignores it. They drop you into a blank chat window, ask you to learn a new interface, and expect you to figure out where AI fits into your life. The product says: come to me. The user says: I'm already busy.
 
-This isn’t a new insight. It’s the lesson of every platform war of the last fifty years, replaying in a new medium. The technically superior product loses, not because users are irrational, but because they’re optimizing for something the builders aren’t measuring. They’re optimizing for fit. How a product slots into the life they already have, the judgment they already trust, the control they refuse to give up. The winners have always been the products that respected where the human needed to stay in the loop. The losers were the ones that asked the human to get out of the way.
+The AI products that will win aren't the ones with the most powerful model. They're the ones that disappear into the things people already do — the apps they already open, the habits they already have, the workflows they never think about. The winners won't ask consumers to change. They'll make the life consumers already have feel effortless.
 
-We’re about to watch this play out again with AI, and most builders are making the same mistake the losers always make. They’re reaching for the most powerful model when they should be designing for the most natural handoff between machine and human.
+This isn't a new lesson. It's the lesson of every consumer technology war ever fought, and it's about to play out again.
 
-## The Pattern Is Everywhere
+## The Consumer Always Chooses Fit Over Power
 
-The technically superior product loses. It loses constantly, across decades, across every category. IBM’s OS/2 was more stable and more capable than early Windows, but Windows ran on the cheap hardware people already owned and maintained backward compatibility with the DOS software they already depended on. For decades, processor architectures like MIPS, Alpha, and SPARC were cleaner and faster than Intel’s x86, but x86 had the software, the toolchains, and the institutional muscle memory of a million IT departments. FireWire was faster than USB in almost every dimension, but USB was cheap, Intel embedded it in every motherboard, and it was good enough for the peripherals already sitting on your desk.
+In 1975, Sony launched Betamax with objectively superior picture quality. It lost to VHS — a format that was worse in nearly every technical dimension — because VHS could record a full football game. JVC understood that people didn't buy a VCR to admire picture fidelity. They bought one to time-shift their lives. Sony asked consumers to care about specs. VHS met them in their living rooms, on their schedules, doing the thing they actually wanted to do.
 
-The pattern is unambiguous: the best technology loses to the most adopted technology, over and over again.
+USB was slower than FireWire. It won because Intel put it on every motherboard and it worked with the peripherals already sitting on your desk. You didn't have to think about it. It was just there.
 
-But *why* these products lost varies. Some lost on distribution. Some lost on price. Some lost on ecosystem lock-in. The version of this pattern that matters most for understanding AI is more specific. It’s the cases where the inferior product won because it respected how people actually behaved — where victory came not from being everywhere, but from fitting naturally into the user’s existing world.
+The iPod wasn't the first MP3 player. It wasn't the cheapest. It won because iTunes turned the messy, confusing process of getting music onto a device into something your parents could do. The product met people at the point of friction — not the playback, but the *getting songs onto the thing* — and removed it.
 
-In 1975, Sony introduced Betamax with demonstrably superior picture quality and a sleeker form factor. It lost to VHS, a format that was technically worse in almost every measurable dimension, because VHS could record a full football game. JVC understood that people didn’t buy a VCR to admire picture fidelity. They bought one to time-shift their lives. The engineering question Sony was answering — how do we maximize image quality? — was the wrong question. The right question was: what does a person actually want to do when they sit down with this product? VHS won because it integrated with behavior. Betamax optimized for specs.
+The pattern is consistent: **the product that meets consumers where they already are beats the product that asks them to come to it.** Not because consumers are irrational. Because they're optimizing for something builders often don't measure — how naturally a product fits into the life they already have.
 
-PHP tells the same story in software. A language that serious engineers have spent two decades mocking conquered the web not because it was well-designed, but because it shipped on every five-dollar hosting plan in existence. You could write a `.php` file, drag it into an FTP window, and your website was live. That deployment model, messy as it was, matched how real people actually built things on the early internet. PHP didn’t win on elegance. It won because the distance between intention and result was nearly zero.
+## Most AI Products Are Making the Old Mistake
 
-Both cases share the trait that defines the winners in AI: **the product that meets users where they are beats the product that asks users to come to it.**
+Right now, the default AI experience is a chat window. A blank text box. A cursor blinking at you, waiting for you to articulate exactly what you want.
 
-## The AI Product Landscape Is Making the Old Mistake
+This is the Betamax strategy dressed up in a new interface.
 
-Right now, the default instinct for anyone building an AI-powered product is to lead with the intelligence of the underlying model. Pitch decks emphasize which frontier model powers the system. Marketing pages cite benchmark scores. Product differentiation is framed as “we use the smartest AI.”
+The models behind these products are extraordinary. But "extraordinary model behind a blank prompt box" is not a consumer product. It's a tech demo. It asks the user to do all the work: figure out what to ask, phrase it correctly, evaluate the response, and then manually carry the result back into whatever app they actually need it in.
 
-This is the Betamax strategy.
+That gap — between what the AI produces and where the consumer actually needs it — is where adoption dies. Not because the AI isn't smart enough, but because the product didn't bother to meet the user halfway.
 
-The models themselves are remarkable, and they’re getting better fast. But the intelligence of the model underneath your product is increasingly table stakes. The frontier models are converging. Access to them is commoditizing. Your competitor can swap in the same model, or a comparable one, in an afternoon.
+The consumers who thrive with AI today are the ones willing to learn prompting, build mental models of what the AI can do, and bridge the gap themselves. That's a small, technical audience. For everyone else — the vast majority of the market — the blank chat box feels like work, not magic.
 
-What your competitor cannot easily replicate is how your product weaves AI into the way a human actually works. And that’s where the real product battle is being fought.
+## The Products Getting It Right Are the Ones You Barely Notice
 
-Too many AI-powered products today follow the same pattern: drop the user into a chat interface, ask them to articulate what they want from scratch, return a result that lives in isolation from their actual tools and context, and then leave it to the user to manually bridge the gap between the AI’s output and their real workflow. That gap, between what the AI produces and where the user needs it, is where adoption goes to die.
+The strongest AI consumer products right now share a trait: you might not even realize you're using AI.
 
-## This Battle Is Already Playing Out
+**Google Photos** doesn't ask you to prompt anything. You search "beach photos from last summer" and it finds them. You tap Magic Eraser and the photobomber vanishes. The AI is powerful, but the product never asks you to think about the AI. It just makes the thing you were already doing — finding and cleaning up photos — work better. Over 1.7 billion people use it, most of them without ever thinking about what's happening underneath.
 
-You don’t have to squint to see this pattern in the current landscape. It’s the defining competitive dynamic in nearly every AI product category right now.
+**Spotify's Discover Weekly** has been training people to trust algorithmic recommendations for years. Now, with AI-powered DJ and daylist features, it's pushing further — generating personalized playlists that adapt to your mood, your time of day, your listening patterns. No one opens Spotify and types a prompt. The product watches what you do and gives you more of what you didn't know you wanted. It meets you in the habit you already have: pressing play.
 
-**The IDE war is being won on integration, not intelligence.** GitHub Copilot holds roughly 42% market share among paid AI coding tools. Cursor, despite offering arguably deeper codebase understanding and faster suggestion latency, sits at around 18%. Both tools can access the same frontier models. The difference is that Copilot works as a plugin inside VS Code, JetBrains, Neovim, and Xcode, the editors developers already use. Cursor requires you to switch to a whole new IDE. For power users willing to make that switch, Cursor is compelling enough to charge double and still hit over $500 million in ARR. But Copilot’s integration advantage creates switching costs that protect its position even when competitors match or exceed feature parity. 90% of Fortune 100 companies have adopted Copilot. That didn’t happen because it was the smartest AI in the room. It happened because it was the AI that disappeared into the workflow.
+**Apple Intelligence** is the clearest articulation of this philosophy at scale. Writing Tools appear inside any text field on the device — Mail, Notes, Messages, third-party apps. You don't go to an AI app. The AI comes to you, in the app you're already in, at the moment you're already writing. Notification summaries reduce the pile of alerts into something scannable without asking you to configure anything. The camera identifies objects and offers contextual actions. Apple's bet is that AI should be a property of the device, not a destination you visit. That's a consumer-first design philosophy, and it's why their AI features are reaching hundreds of millions of people while standalone AI apps struggle to retain users past the first week.
 
-The nuance here is telling. Cursor dominates the *value* market, developers who will pay more and change their tools for a meaningfully better experience. Copilot dominates the *volume* market, the mass of developers and enterprises where the path of least resistance wins. History says the volume market is harder to dislodge.
+**Duolingo** rebuilt its entire product around AI without asking users to change how they learn. The AI generates personalized exercises, adapts difficulty in real-time, and roleplays conversations — but the interface is still the same friendly, game-like experience millions of people already use every day. They replaced a significant portion of contract translators with AI and invested the savings into making the core product better. Users didn't have to learn anything new. The app just got smarter around them.
 
-**Enterprise productivity suites are following the same logic.** Microsoft 365 Copilot and Google Gemini for Workspace are engaged in a competitive race where the underlying model matters far less than the surrounding integration. Microsoft charges $30/user/month as an add-on and leans on its 430 million commercial seat base. Google bundles Gemini into existing Workspace tiers. In both cases, the value proposition isn’t “our AI is smarter.” It’s “our AI already knows your files, your calendar, your email, and your team’s conventions.” As one enterprise analysis put it, the tool that integrates most seamlessly with the organization’s daily work environment yields the highest ROI, which usually means Copilot for Microsoft shops and Gemini for Google shops. The model is interchangeable. The integration is the moat.
+Even in shopping, the pattern holds. **Amazon's** AI-powered "Rufus" assistant lives inside the shopping app, answering product questions and helping comparisons right where you're already browsing. It doesn't ask you to go somewhere else. It makes the thing you're already doing — scrolling through products trying to decide — faster and more informed.
 
-**Shopify understood this before anyone had to explain it.** While other commerce platforms debated which AI model to license, Shopify embedded AI directly into the admin panel where merchants already spend their days. Sidekick, their AI assistant, doesn’t live in a separate chat window. It surfaces inside the product editor, the email composer, the customer conversation panel. No separate login, no data export, no context-switching. For solo founders and small teams, Shopify Magic is a throughput multiplier not because its AI is the most powerful, but because it appears exactly where merchants need it, right when they need it. Then Shopify went further: they built Agentic Storefronts that let customers purchase products directly inside ChatGPT, Microsoft Copilot, and Google Gemini. Shopify’s bet is that commerce will increasingly happen inside AI conversations, and the platform that makes itself the invisible infrastructure behind those transactions wins. They’re now processing $378 billion in annual GMV and have captured over 14% of U.S. e-commerce. They didn’t get there by building the best AI. They got there by making AI dissolve into the merchant’s existing world.
+## The Blank Chat Box Has a Ceiling
 
-**Even in design tools, the pattern holds.** Adobe Firefly leads the AI design market at 29% share, not because it generates the best images, but because it’s embedded inside Photoshop, Illustrator, and the rest of Creative Cloud where designers already live. Canva, with 220 million monthly active users, is winning a different fight for a different audience: non-designers who need to create professional content without switching tools or learning new interfaces. Both are beating standalone AI image generators that produce arguably better output but live in isolation from any workflow. The standalone generators are impressive demos. The integrated ones are daily tools.
+The standalone AI chat products — ChatGPT, Gemini, Claude — are remarkable tools. They've created a new category and proven that people will pay for raw intelligence. But there's a ceiling on that approach, and the numbers hint at it.
 
-**The pattern even extends to search itself.** Google still commands the vast majority of search traffic, but Perplexity AI has grown from a few thousand daily queries in 2022 to over 30 million daily queries in 2025, reaching $100 million in ARR. It’s not winning with a better model. It’s winning by rethinking the integration between AI and the human’s actual intent. Instead of returning ten blue links and asking the user to synthesize an answer, Perplexity delivers a direct, cited synthesis and lets the user drill deeper conversationally. It reduced the distance between question and answer, and in doing so, it’s carved out a real wedge against an incumbent that seemed unassailable. The lesson isn’t about search. It’s about removing friction from the handoff between what the AI knows and what the human needs.
+Retention is the tell. Many AI chat apps see significant drop-off after the first month. Not because the AI got dumber, but because the novelty fades and the user is left with the same question: *where does this fit in my day?* The product that requires you to context-switch, rephrase your needs, and manually move results into your actual tools is fighting friction on every side.
 
-## The Winners Will Master Human-in-the-Loop Integration
+Compare that with AI features embedded inside products people already use daily. These don't have a retention problem because the user never adopted a new habit. The existing habit just got better.
 
-The AI-powered products that win the next decade won’t be the ones running the most powerful model. They’ll be the ones that understand where the human needs to stay in the loop and make that loop feel effortless.
+This is why the most interesting moves in AI right now aren't new apps — they're existing apps absorbing AI into their core experience. Notion adding AI to its editor. Canva generating designs from a description inside the design tool you already have open. Gmail drafting replies in the compose window. The AI doesn't announce itself. It just reduces the friction in something you were already going to do.
 
-This means several things in practice:
+## What Winning Looks Like
 
-**Meeting users inside their existing tools, not beside them.** The VHS lesson is clear: don’t ask people to change their behavior. The AI product that lives inside the IDE, the spreadsheet, the email client, the Slack thread, not in a separate chat window you have to alt-tab to, will feel like a natural extension of work. The one that requires a new tab and a new mental model will feel like a chore, no matter how capable the model behind it is. GitHub Copilot’s dominance over technically superior alternatives demonstrates this daily. Microsoft Copilot and Google Gemini are betting their entire AI strategies on it. Shopify built it into their DNA. The evidence is not theoretical.
+The AI products that will define the next decade of consumer technology will share a few traits:
 
-**Designing for appropriate trust, not maximum autonomy.** There’s a seductive vision where the AI just handles everything end to end. But the history of technology adoption suggests that users choose systems that give them control at the moments that matter. The 2025 Stack Overflow Developer Survey captures this tension precisely: 84% of developers use AI tools or plan to, but only 33% trust AI-generated code for accuracy. Developer trust in AI is actually *declining* even as adoption rises. This isn’t irrational. It’s a population that wants the throughput gains but refuses to cede judgment. The best AI products will make it trivially easy to review, correct, and redirect, not because autonomy is bad, but because trust is built in the loop, not around it. The winning product will be the one where a human can glance at the output, nudge it, and move on in seconds.
+**They'll live inside existing habits, not beside them.** The VHS lesson is eternal: don't ask people to change their behavior. The AI that lives inside your camera app, your email, your shopping cart, your music player — not in a separate app you have to remember to open — will feel like a natural extension of life. The one that requires a new tab and a new mental model will feel like homework.
 
-**Optimizing for the workflow, not the task.** A product that uses AI to write brilliant code but drops it into a blank file with no context is solving a task. A product that writes good code, opens a pull request, references the relevant ticket, and flags the parts it’s least confident about is solving a workflow. The difference is the distance between “impressive” and “indispensable.” Shopify’s Agentic Storefronts don’t just generate product recommendations; they handle discovery, checkout, discount codes, and subscription billing inside the conversation where the customer already is. That’s workflow-level thinking, and it’s why their merchant solutions revenue now dwarfs their subscription business at $8.8 billion versus $2.75 billion.
+**They'll earn trust by showing their work.** Consumers don't trust black boxes. The products that win will make it easy to see what the AI did, correct it, and move on. Apple's Writing Tools show you the rewrite and let you accept, reject, or adjust. Google Photos shows you what Magic Eraser will remove before you commit. Trust is built in the interaction, not in the marketing page. The product that gives consumers a sense of control — even if the AI could handle it autonomously — will always beat the one that asks for blind faith.
 
-**Making context flow naturally.** The products that win will be the ones that bring the user’s existing context, their documents, their preferences, their history, their team’s conventions, into the AI interaction without the user having to explain it every time. This is why Microsoft Copilot’s connection to Microsoft Graph, which surfaces context from your actual emails, files, meetings, and chats, matters more than which OpenAI model it runs underneath. It’s why Notion AI, despite using the same underlying models as ChatGPT, wins inside Notion: it understands the structure of your workspace, your projects, and your databases without you having to explain them. The model doesn’t need to be the smartest in the room if the product is smart about what it feeds the model.
+**They'll optimize for the moment, not the session.** The best AI consumer experiences will be measured in seconds, not minutes. A quick suggestion while you're typing. An automatic sort of your photos. A smarter notification summary you glance at and move on. These aren't "AI sessions" — they're moments where friction disappeared. The products that nail this will be used a hundred times a day by people who never think of themselves as "using AI."
 
-## The Counterargument, and Why It’s Wrong
+**They'll bring context without being asked.** The products that win will know enough about you — your preferences, your history, your patterns — to be useful without making you explain yourself every time. Not because they're surveilling you, but because they're embedded in the product where that context already lives. Your email app already has your contacts and your calendar. Your music app already knows what you listen to. Your shopping app already has your purchase history. The AI that uses that context naturally will always outperform the general-purpose chatbot that starts every interaction from zero.
 
-The obvious objection is that model intelligence is what matters most. That a sufficiently powerful model will compensate for clunky integration. That once the AI is smart enough, it won’t need thoughtful product design because it’ll just get things right.
+## The Counterargument, and Why It's Wrong
 
-This is the Betamax argument in a new dress. “Our picture quality is so good that it doesn’t matter if you can’t record a full game.” It was wrong then and it’s wrong now, for the same reason: users don’t evaluate technology in a vacuum. They evaluate it in the context of their constraints, their habits, and their trust.
+The obvious objection: model intelligence is what matters most. A sufficiently powerful model will compensate for clunky integration. Once the AI is smart enough, it won't need thoughtful product design because it'll just get things right.
 
-And trust, in particular, is the variable that benchmarks don’t capture. A user who trusts a product powered by a slightly-less-capable model, because they can see its reasoning, correct its mistakes, and predict its behavior, will choose that product over a black-box genius every time. Trust isn’t a model problem. It’s a product design problem. And it’s solved in the integration layer, not the intelligence layer.
+This is the Betamax argument in new clothes. "Our picture quality is so good it doesn't matter if you can't record a full game." It was wrong then and it's wrong now, because consumers don't evaluate technology in a vacuum. They evaluate it in the context of their routines, their patience, and their trust.
 
-The current market data tells this story clearly. The $36 billion AI coding tools market isn’t consolidating around the smartest model. It’s fragmenting along integration lines: Copilot for enterprises already on GitHub, Cursor for engineering-led teams willing to adopt a new IDE, Claude Code for developers who live in the terminal. Each is winning its segment not on model intelligence but on how naturally it fits into a particular way of working. Same models, different integrations, different winners.
+A consumer who trusts a slightly less capable AI — because it lives inside an app they already use, shows its work, and lets them correct it — will choose that product over a more powerful one that requires them to change their behavior. Every single time. That's not irrational. That's human.
 
 ## What This Means for Builders
 
-If you’re building AI-powered products today, the implication is stark: the model is not your moat. Intelligence is converging, access is democratizing, and the gap between the best and second-best model narrows with every release cycle.
+If you're building AI products for consumers, the implication is stark: the model is not your moat. Intelligence is converging, access is democratizing, and the gap between the best and second-best model narrows with every release.
 
-The durable advantage, the moat that actually holds, is in how your product fits into the human’s world. How it respects their existing tools, their need for oversight, their tolerance for ambiguity, and their demand for control at the moments that matter.
+Your moat is how your product fits into the consumer's life. How it respects their existing apps, their existing habits, their limited patience, and their deep, justified skepticism about handing control to a machine.
 
-Build the VHS. Build the USB port. Build the thing that’s good enough and everywhere, not perfect and isolated.
+Don't build another chat window and assume people will find a use for it. Find the moment of friction in something people already do every day, and make the AI dissolve it.
 
-The smartest AI won’t win. The product that disappears into the workflow will.
+Build the VHS. Build the USB port. Build the thing that fits so naturally into someone's life that they forget it's there.
+
+The smartest AI won't win. The one people actually use — without thinking about it — will.
