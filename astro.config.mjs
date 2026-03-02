@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
+import remarkGfm from "remark-gfm";
 import remarkToc from "remark-toc";
 import config from "./src/config/config.json";
 
@@ -41,6 +42,7 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [
+      remarkGfm,
       remarkToc,
       [
         remarkCollapse,
