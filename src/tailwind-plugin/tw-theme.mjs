@@ -22,13 +22,13 @@ const darkColorGroups = [];
 if (themeConfig.colors.darkmode?.theme_color) {
   darkColorGroups.push({
     colors: themeConfig.colors.darkmode.theme_color,
-    prefix: "darkmode-",
+    prefix: "",
   });
 }
 if (themeConfig.colors.darkmode?.text_color) {
   darkColorGroups.push({
     colors: themeConfig.colors.darkmode.text_color,
-    prefix: "darkmode-",
+    prefix: "",
   });
 }
 

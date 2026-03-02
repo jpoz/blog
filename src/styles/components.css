@@ -77,6 +77,35 @@
   @apply prose max-w-none prose-headings:font-bold prose-h1:mb-4 prose-h1:text-h1-sm prose-h2:mb-4 prose-h2:mt-4 prose-h2:text-h2-sm prose-h3:mt-4 prose-h3:text-h3-sm prose-h4:mt-4 prose-h5:mb-4 prose-h6:mb-6 prose-blockquote:rounded-lg prose-blockquote:border-primary prose-blockquote:bg-light prose-blockquote:px-7 prose-blockquote:py-3 prose-blockquote:text-lg prose-blockquote:leading-8 prose-pre:px-6 prose-pre:py-5 md:prose-h1:text-h1 md:prose-h2:text-h2 md:prose-h3:text-h3;
 }
 
+.dark .content {
+  @apply prose-headings:text-[var(--color-text-dark)] prose-p:text-[var(--color-text)] prose-a:text-[var(--color-primary)] prose-strong:text-[var(--color-text-dark)] prose-blockquote:bg-[var(--color-light)] prose-blockquote:text-[var(--color-text)] prose-code:text-[var(--color-text-dark)] prose-pre:bg-[var(--color-light)] prose-li:text-[var(--color-text)];
+}
+
+/* footnotes */
+.content .footnotes {
+  @apply mt-12 border-t border-border pt-6 text-sm text-gray-600;
+}
+
+.content .footnotes ol {
+  @apply list-decimal pl-6;
+}
+
+.content .footnotes li {
+  @apply mb-2;
+}
+
+.content .footnotes li p {
+  @apply inline;
+}
+
+.content sup a[data-footnote-ref] {
+  @apply text-primary no-underline font-semibold text-xs;
+}
+
+.content a[data-footnote-backref] {
+  @apply text-primary no-underline ml-1;
+}
+
 /* tab */
 .tab {
   @apply overflow-hidden rounded-lg border border-border;
