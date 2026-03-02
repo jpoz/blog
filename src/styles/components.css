@@ -210,10 +210,6 @@
 }
 
 /* footer */
-.dark footer.bg-dark {
-  background-color: #111125;
-}
-
 footer p a {
   @apply transition-all duration-200 hover:text-white;
 }
