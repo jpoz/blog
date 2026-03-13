@@ -3,11 +3,11 @@ title: "Rebuilding Excel's Formula Engine in a Weekend"
 meta_title: ""
 description: "How I orchestrated AI agents in parallel loops to build an XLSX calculation engine with 100+ formula functions in Go, from scratch, in a weekend."
 date: 2026-03-13T05:00:00Z
-image: ""
+image: "/images/posts/xlsx-ai.png"
 categories: ["codez"]
 authors: ["jpoz"]
 tags: ["ai", "go", "excel"]
-draft: true
+draft: false
 ---
 
 Somewhere around 2 billion people use spreadsheets. Not "have access to", *use*. Over half of all businesses worldwide run on it. The average office worker spends [38% of their time](https://www.acuitytraining.co.uk/news-tips/new-excel-facts-statistics/) in a spreadsheet. Bloomberg called it a ["multitrillion-dollar empire."](https://www.bloomberg.com/features/2025-microsoft-excel-ai-software/) When people talk about the software that runs the global economy, they usually mean databases or ERP systems. They're wrong. It's spreadsheets. It's always been spreadsheets.
