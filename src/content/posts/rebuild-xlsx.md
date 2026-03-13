@@ -12,7 +12,7 @@ draft: false
 
 Somewhere around 2 billion people use spreadsheets. Not "have access to", *use*. Over half of all businesses worldwide run on it. The average office worker spends [38% of their time](https://www.acuitytraining.co.uk/news-tips/new-excel-facts-statistics/) in a spreadsheet. Bloomberg called it a ["multitrillion-dollar empire."](https://www.bloomberg.com/features/2025-microsoft-excel-ai-software/) When people talk about the software that runs the global economy, they usually mean databases or ERP systems. They're wrong. It's spreadsheets. It's always been spreadsheets.
 
-But What does it take to make `=SUMPRODUCT((A1:A100="Yes")*(B1:B100))` actually work? Building a proper calculation engine for spreadsheets (one that can actually evaluate formulas) has always been a massive undertaking. The spec is enormous, the edge cases are endless, and the function library alone runs to hundreds of entries. It's the kind of project that teams spend years on. Which is why almost nobody has done it well outside of Microsoft and Google. But AI changed the math on what's possible for a solo developer with a free weekend.
+But what does it take to make `=SUMPRODUCT((A1:A100="Yes")*(B1:B100))` actually work? Building a proper calculation engine for spreadsheets (one that can actually evaluate formulas) has always been a massive undertaking. The spec is enormous, the edge cases are endless, and the function library alone runs to hundreds of entries. It's the kind of project that teams spend years on. Which is why almost nobody has done it well outside of Microsoft and Google. But AI changed the math on what's possible for a solo developer with a free weekend.
 
 I built the base of [werkbook](https://github.com/jpoz/werkbook), a library that can read an XLSX file, evaluate its formulas, and write the results back... in a weekend. No shelling out to Excel or LibreOffice. It has a proper lexer, parser, bytecode compiler, virtual machine, hundreds of function implementations, and one weekend.
 
@@ -53,7 +53,7 @@ Before AI, this is the part that would have taken months. Not because any single
 
 ## Saturday Night: The Edge Finder
 
-Raw implementations aren't enough. Xlsx files have decades of quirky behavior baked in, and users expect exact compatibility. This is where my role shifted from "build" to "verify."
+Raw implementations aren't enough. XLSX files have decades of quirky behavior baked in, and users expect exact compatibility. This is where my role shifted from "build" to "verify."
 
 I spun up a second agent in parallel, focused entirely on breaking things.
 
