@@ -10,11 +10,11 @@ tags: ["ai", "go", "excel"]
 draft: false
 ---
 
-Somewhere around 2 billion people use spreadsheets. Not "have access to", *use*. Over half of all businesses worldwide run on it. The average office worker spends [38% of their time](https://www.acuitytraining.co.uk/news-tips/new-excel-facts-statistics/) in a spreadsheet. Bloomberg called it a ["multitrillion-dollar empire."](https://www.bloomberg.com/features/2025-microsoft-excel-ai-software/) When people talk about the software that runs the global economy, they usually mean databases or ERP systems. They're wrong. It's spreadsheets. It's always been spreadsheets.
+Somewhere around 2 billion people use spreadsheets. Over half of all businesses worldwide run on it. The average office worker spends [38% of their time](https://www.acuitytraining.co.uk/news-tips/new-excel-facts-statistics/) in a spreadsheet. Bloomberg called it a ["multitrillion-dollar empire."](https://www.bloomberg.com/features/2025-microsoft-excel-ai-software/) When people talk about the software that runs the global economy, they usually mean databases or ERP systems. They're wrong. It's spreadsheets. It's always been spreadsheets.
 
 But what does it take to make `=SUMPRODUCT((A1:A100="Yes")*(B1:B100))` actually work? Building a proper calculation engine for spreadsheets (one that can actually evaluate formulas) has always been a massive undertaking. The spec is enormous, the edge cases are endless, and the function library alone runs to hundreds of entries. It's the kind of project that teams spend years on. Which is why almost nobody has done it well outside of Microsoft and Google. But AI changed the math on what's possible for a solo developer with a free weekend.
 
-I built the base of [werkbook](https://github.com/jpoz/werkbook), a library that can read an XLSX file, evaluate its formulas, and write the results back... in a weekend. No shelling out to Excel or LibreOffice. It has a proper lexer, parser, bytecode compiler, virtual machine, hundreds of function implementations, and one weekend.
+I built the base of [werkbook](https://github.com/jpoz/werkbook), a library that can read an XLSX file, evaluate its formulas, and write the results back... in a weekend. No shelling out to Excel or LibreOffice. It has a proper lexer, parser, bytecode compiler, virtual machine, hundreds of function implementations.
 
 Here's how the weekend went.
 
@@ -26,10 +26,10 @@ I set up four stages:
 
 1. **Lexer**: tokenize `SUM(A1:B12)` into meaningful pieces
 2. **Parser**: handle operator precedence and turn tokens into an AST
-3. **Bytecode Compiler**: compile the AST into stack-based VM instructions
+3. **Compiler**: compile the AST into stack-based instructions
 4. **VM Evaluator**: execute the bytecode against actual cell data
 
-I chose a bytecode VM over a tree-walking interpreter because spreadsheets get re-evaluated constantly. Compile once, run many times. With the skeleton in place and a handful of functions working end-to-end (basic arithmetic, `SUM`, `IF`), I had the scaffolding that AI could build on.
+I chose a VM over a tree-walking interpreter because spreadsheets get re-evaluated constantly. Compile once, run many times. With the skeleton in place and a handful of functions working end-to-end (basic arithmetic, `SUM`, `IF`), I had the scaffolding that AI could build on.
 
 I also pointed AI at the XLSX file format and had it build out the read/write capability: parsing the XML inside the zip, resolving shared strings, handling styles. Tedious, spec-heavy work that AI handles well.
 
