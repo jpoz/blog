@@ -3,7 +3,7 @@ title: "Rebuilding Excel's Formula Engine in a Weekend"
 meta_title: ""
 description: "How I orchestrated AI agents in parallel loops to build an XLSX calculation engine with 100+ formula functions in Go, from scratch, in a weekend."
 date: 2026-03-13T05:00:00Z
-image: "/images/posts/xlsx-ai.png"
+image: "/images/posts/xlsx-ai.jpg"
 categories: ["codez"]
 authors: ["jpoz"]
 tags: ["ai", "go", "excel"]
