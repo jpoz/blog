@@ -31,9 +31,29 @@ const {
         }}
       />
     ) : logo_text ? (
-      logo_text
+      <span class="logo-text">{logo_text}</span>
     ) : (
       title
     )
   }
 </a>
+
+<style>
+  .logo-text {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    background: linear-gradient(135deg, #01AD9F, #018a7f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+  }
+
+  :global(.dark) .logo-text {
+    background: linear-gradient(135deg, #01C9B9, #01AD9F);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+</style>
