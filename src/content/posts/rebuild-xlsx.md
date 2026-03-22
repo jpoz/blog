@@ -1,12 +1,12 @@
 ---
-title: "Rebuilding Excel's Formula Engine in a Weekend"
+title: "Rebuilding a Spreadsheet Formula Engine in a Weekend"
 meta_title: ""
 description: "How I orchestrated AI agents in parallel loops to build an XLSX calculation engine with 100+ formula functions in Go, from scratch, in a weekend."
 date: 2026-03-13T05:00:00Z
 image: "/images/posts/xlsx-ai.jpg"
 categories: ["codez"]
 authors: ["jpoz"]
-tags: ["ai", "go", "excel"]
+tags: ["ai", "go", "spreadsheets"]
 draft: false
 ---
 
@@ -20,69 +20,51 @@ Here's how the weekend went.
 
 ## Friday Night: The Architecture
 
-This was the part I did by hand. The formula engine is a classic compiler pipeline, and getting the architecture right matters more than anything downstream. AI is great at filling in patterns, but it needs the patterns to exist first.
+The formula engine is a classic compiler pipeline, and getting the architecture right matters more than anything downstream. AI is great at filling in patterns, but it needs the patterns to exist first, and it needs someone deciding which patterns to use.
 
-I set up four stages:
+I set up four stages, working with AI to build each one but staying tight on every decision:
 
 1. **Lexer**: tokenize `SUM(A1:B12)` into meaningful pieces
 2. **Parser**: handle operator precedence and turn tokens into an AST
 3. **Compiler**: compile the AST into stack-based instructions
 4. **VM Evaluator**: execute the bytecode against actual cell data
 
-I chose a VM over a tree-walking interpreter because spreadsheets get re-evaluated constantly. Compile once, run many times. With the skeleton in place and a handful of functions working end-to-end (basic arithmetic, `SUM`, `IF`), I had the scaffolding that AI could build on.
+AI was writing the code, but I was driving: what the instruction set should look like, how the stack should handle different value types, where to draw boundaries between stages. When something wasn't right, I'd course-correct immediately rather than letting bad decisions compound. With the skeleton in place and a handful of functions working end-to-end (basic arithmetic, `SUM`, `IF`), I had the scaffolding that AI could build on more autonomously.
 
-I also pointed AI at the XLSX file format and had it build out the read/write capability: parsing the XML inside the zip, resolving shared strings, handling styles. Tedious, spec-heavy work that AI handles well.
+I also pointed AI at the [XLSX file format](https://www.loc.gov/preservation/digital/formats/fdd/fdd000398.shtml), which is an open standard (it's just XML files in a zip), and had it build out the read/write capability: parsing the XML, resolving shared strings, handling styles. Tedious, spec-heavy work that AI handles well. Tedious, spec-heavy work that AI handles well.
 
 This is still the part of the job that's entirely human. The problem was loosely defined, "I want server-side spreadsheet calculation in Go," and it was on me to turn that into a specific architecture. What stages? What data structures? What tradeoffs? AI can't make those calls because it doesn't know what you're optimizing for.
 
 ## Saturday: The Loop
 
-With the architecture solid and a few reference implementations to learn from, the next step was obvious: there are hundreds of Excel functions, and they mostly follow the same shape. Parse arguments, validate types, compute result, handle errors.
+With the architecture solid and a few reference implementations to learn from, the next step was obvious: there are hundreds of spreadsheet functions, and they mostly follow the same shape. Parse arguments, validate types, compute result, handle errors.
 
 I set up an AI agent in a loop:
 
 1. Find a formula function that isn't implemented yet
 2. Implement it following the patterns established by the existing functions
-3. Move on to the next one
+3. Write tests for it
+4. Move on to the next one
+
+Every function got its own tests: table-driven cases covering normal inputs, edge cases, error conditions, and type coercion. The agent would build a mock spreadsheet in memory, evaluate the formula, and check the result. By the end of the weekend the test suite had thousands of cases across math, text, date, statistical, financial, lookup, and engineering functions.
 
 This is where AI shines. Function #50 is structurally similar to function #5. The agent could look at how `AVERAGE` was implemented and produce `AVERAGEIF`. It could see how `LEFT` worked and build `RIGHT`, `MID`, `SUBSTITUTE`. The repetitive middle is AI's sweet spot.
 
-By Saturday afternoon it was churning through math functions, statistical functions, text functions, date functions, logical functions, financial functions. The weirder corners of Excel too: Bessel functions, complex number arithmetic, the full `TEXT()` number formatting engine.
+By Saturday afternoon it was churning through math functions, statistical functions, text functions, date functions, logical functions, financial functions. The weirder corners of the spec too: Bessel functions, complex number arithmetic, the full `TEXT()` number formatting engine.
 
 Before AI, this is the part that would have taken months. Not because any single function is hard, but because there are *so many of them*. The tedium is the bottleneck, not the complexity. AI removed the tedium entirely.
 
-## Saturday Night: The Edge Finder
-
-Raw implementations aren't enough. XLSX files have decades of quirky behavior baked in, and users expect exact compatibility. This is where my role shifted from "build" to "verify."
-
-I spun up a second agent in parallel, focused entirely on breaking things.
-
-This agent's job:
-
-1. Review each implemented function
-2. Think about edge cases — what happens with array inputs? Empty cells? Out-of-bounds references? Mixed types? Circular references? Boolean coercion? What about `#N/A` vs `#VALUE!` vs `#REF!`: does each function return the right error for the right reason?
-3. Build failing test cases as actual `.xlsx` files
-
-It found real problems. Functions that didn't handle arrays when they should. Off-by-one errors in date calculations. Missing coercion from strings to numbers. The kind of stuff that works fine in the happy path but falls apart the moment someone's spreadsheet does something slightly weird.
-
-This is the part of the new job I find most interesting. I wasn't writing the tests myself. I was designing a system that would generate the right tests, deciding *what kinds of problems to look for* and letting the agent do the looking. The skill isn't writing the validation code. It's knowing what correct looks like.
-
-With the edge finder producing a steady stream of failing test cases, I pointed a third agent at the failures:
-
-1. Pick up a failing test
-2. Figure out what's wrong
-3. Fix it
-4. Move on
-
-Three agents, running in parallel. One building new functions. One finding problems. One fixing them. I'd check in periodically, review what they'd done, course-correct when something went sideways. But mostly they just... worked.
-
 ## Sunday: Real-World Validation
 
-Unit tests and generated edge cases are one thing. Real spreadsheets from real people are another. On Sunday I went hunting for xlsx files in the wild: financial models, inventory trackers, project plans, anything I could find shared publicly online.
+Unit tests are one thing. Real spreadsheets from real people are another. On Sunday I went hunting for xlsx files in the wild: government budget templates, corporate financial models, inventory trackers, project schedules, anything I could find shared publicly online. These are messy. They use formulas in ways no spec author anticipated. They're the real test.
 
-Here's the trick that makes this possible without even having Excel installed: xlsx files cache their calculated values. When someone saves a spreadsheet, Excel writes the last-computed result into every formula cell. That means you already have the answer key. Open the file, recalculate every formula with werkbook, and diff the results against the cached values. Any mismatch is a bug.
+Here's the trick that made this whole approach possible, and I think it's the most interesting part of the project: every xlsx file already contains its own answer key.
 
-I pointed an agent at a pile of downloaded spreadsheets and had it run this comparison loop. It surfaced a handful of real issues: date serial number handling that didn't match Excel's 1900 leap year bug, locale-sensitive number formatting quirks, a few functions that silently dropped precision on large values. The kind of stuff you'd never catch with synthetic tests because you'd never think to write them.
+When someone saves a spreadsheet, the application writes the last-computed result into every formula cell. Those cached values sit right there in the XML. So you don't need a copy of the spreadsheet application to know what the right answer is. You just open the file, recalculate every formula with werkbook, and diff your results against the cached values. Any mismatch is a bug. You're testing against the same application that billions of people use every day, without ever running it.
+
+I pointed an agent at the pile of downloaded spreadsheets and had it run this comparison loop: open a file, recalculate everything, report any cell where werkbook's result didn't match the cached value, move on to the next file. Hundreds of spreadsheets, thousands of formulas, all validated automatically.
+
+It surfaced real issues. The best one: date serial number handling didn't account for the infamous 1900 leap year bug, where spreadsheets treat February 29, 1900 as a real date (it isn't) for backwards compatibility with Lotus 1-2-3. There were locale-sensitive number formatting quirks, functions that silently dropped precision on large values, and edge cases in how boolean values get coerced in arithmetic contexts. Then there's floating point: `0.1 + 0.2 - 0.3` doesn't equal `0` in IEEE 754 math, but spreadsheets round to 15 significant figures internally so it does. Werkbook had to learn to do the same. The kind of stuff you'd never catch with synthetic tests because you'd never think to write them.
 
 ## What I Ended Up With
 
@@ -90,11 +72,23 @@ By Sunday night: over 100 formula functions implemented, tested, and handling ed
 
 The conditional aggregates work (`SUMIFS`, `COUNTIFS` with wildcard matching). The lookup functions work (`VLOOKUP`, `INDEX`/`MATCH`). Dynamic array formulas work (`UNIQUE`, `FILTER`, `SORT` with spill ranges). Even the financial functions that nobody understands work.
 
+## What's Happened Since
+
+The weekend was a starting point, not the finish line. I've kept working on werkbook, and it now has 446 spreadsheet formula functions. I also built a website for it at [werkbook.io](https://werkbook.io), again with massive help from AI.
+
+But the problems have gotten harder. The weekend work was mostly about breadth: implement a lot of functions, cover the common cases. The work since has been about depth, the kind of subtle, interconnected bugs that only surface when you push the engine into the spec's weirder corners.
+
+Dynamic arrays and spill ranges have been the biggest headache. In a spreadsheet, a formula like `=FILTER(B:B, A:A="yes")` can return multiple values that "spill" into adjacent cells. Sounds simple. It is not.
+
+For example: `SUM(B:B)` was only seeing the anchor cell of a spill, ignoring the values that spilled below it. So a FILTER that produced ten results would only contribute one value to a SUM over the same column. The fix required dynamically expanding evaluation bounds when spill arrays extend past the original range, while being careful not to expand unnecessarily and trigger circular references from unrelated formulas. One bug like that touches range evaluation, dependency tracking, and cycle detection all at once.
+
+These aren't the kind of problems AI solves on its own. They require understanding how spreadsheets actually behave (often undocumented), reasoning about evaluation order across dependent cells, and making architectural decisions about caching and context propagation. AI is still writing most of the code, but I'm spending more time in the debugger, reading the raw XML output, and figuring out *what* correct even means before I can tell the agent to go fix it.
+
 ## The Job is Different Now. And the Same.
 
-The way I spent my time this weekend would look alien to me five years ago. I wrote maybe 20% of the code by lines. I spent most of my time designing systems (architecture, agent workflows, verification strategies) and then reviewing what those systems produced. My job was to know what "correct" looks like and build processes that could get there.
+The way I spent my time that weekend would look alien to me five years ago. I wrote maybe 20% of the code by lines. I spent most of my time designing systems (architecture, agent workflows, verification strategies) and then reviewing what those systems produced. My job was to know what "correct" looks like and build processes that could get there.
 
-But here's what I didn't expect: the job felt familiar. A developer's job has always been to take a complicated, loosely defined problem and turn it into something very specific that actually works. That hasn't changed. What's changed is where you spend your time.
+But the job felt familiar. A developer's job has always been to take a complicated, loosely defined problem and turn it into something very specific that actually works. That hasn't changed. What's changed is where you spend your time.
 
 Zoom out, and the job description hasn't changed at all. Someone said "I need server-side spreadsheet calculation," a vague, complicated problem. I turned it into a specific, working solution. That's what developers do. That's what we've always done. We take an ambiguous need and make it concrete.
 
