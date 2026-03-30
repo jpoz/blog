@@ -1,0 +1,127 @@
+---
+title: "Why Go Is a Good Language for AI-Written Code"
+meta_title: ""
+description: "Go’s constraints, the things people used to complain about, turn out to be exactly the properties that make AI-generated code trustworthy."
+date: 2026-03-29T05:00:00Z
+image: "/images/posts/go-workers.png"
+categories: ["thoughts"]
+authors: ["jpoz"]
+tags: ["ai", "go"]
+draft: false
+---
+
+The programming language you choose matters more when AI is writing the code.
+
+When a human writes code, they carry context and intent across every line. When an AI writes code, it’s pattern-matching against training data. The guardrails that used to feel like annoyances, Go’s rigidity, its verbosity, its refusal to give you more than one way to do things, turn out to be exactly the properties that make AI-generated code trustworthy.
+
+I’ve spent the last year writing Go with AI doing most of the typing. I [built a spreadsheet formula engine](/posts/build-xlsx) with over 400 functions this way. The more I work like this, the more convinced I become: Go might be the best language we have for AI-written code.
+
+## Fewer Ways to Write It
+
+Go has a deliberately small surface area. There’s usually one obvious way to do something, and while Go isn’t immune to choice (you can read a file with `os.ReadFile`, `os.Open` plus `io.ReadAll`, or `bufio.Scanner`), the range of options is narrow compared to most languages. That predictability is a massive advantage when the author is an LLM.
+
+Consider something as simple as reading a file:
+
+<CodeCompare>
+
+```python
+# Python: pick your adventure
+with open("f.txt") as f:
+    data = f.read()
+
+# or
+data = Path("f.txt").read_text()
+
+# or
+f = io.open("f.txt", encoding="utf-8")
+
+# or
+fd = os.open("f.txt", os.O_RDONLY)
+data = os.read(fd, 4096)
+```
+
+```go
+// Go: one way
+data, err := os.ReadFile("f.txt")
+if err != nil {
+    return err
+}
+```
+
+</CodeCompare>
+
+A human knows which Python approach fits the context. An LLM picks whichever pattern it saw most recently in its context window, and you end up with three different styles in the same codebase. Go doesn't eliminate choice entirely, but it narrows the funnel enough that AI-generated code stays consistent.
+
+`gofmt` takes this further. Every Go file in existence is formatted the same way. No debates, no config. AI-generated code comes out styled identically to human-written code. When you’re stitching together output from dozens of prompts, that consistency isn’t cosmetic. It’s structural.
+
+Then there’s the [Go 1 compatibility promise](https://go.dev/doc/go1compat). Go has never had a breaking version change. The Go team has said that “Go 2, in the sense of breaking with the past and no longer compiling old programs, is never going to happen.” Code from 2012 training data is still valid Go today. LLMs have 14+ years of consistent, non-breaking code to learn from. Compare that to Python 2 vs. 3, or JavaScript framework churn where last year’s idiomatic React looks nothing like this year’s.
+
+## The Compiler as a Guardrail
+
+`go build` catches a huge class of errors instantly: unused variables, type mismatches, missing return values, wrong function signatures. When you’re running AI in a generate-compile-test loop, that sub-second feedback cycle means bad code gets caught and corrected in seconds, not minutes.
+
+Go’s type system hits a sweet spot for AI. It’s strict enough to catch real bugs but simple enough that LLMs rarely get tangled in it. Rust’s borrow checker trips up models constantly; they’ll generate code that’s conceptually correct but fails to satisfy the compiler’s ownership rules. Go gives you enough structure to catch mistakes without creating a puzzle the AI can’t solve.
+
+Implicit interface satisfaction is underrated here. A type satisfies an interface just by having the right methods. No `implements` keyword, no declaration graph for the AI to track. If the methods match, it works. If they don’t, the compiler tells you.
+
+## Reviewing AI’s Work
+
+When AI writes your code, your primary job becomes reviewing it. This is the argument I keep coming back to: Go is the easiest language to review.
+
+Go functions read top-to-bottom. No nested callbacks, no monadic chains, no decorator magic. What you see is what executes. Go culture pushes toward short, single-purpose functions, and AI naturally produces these. Diffs end up scoped to small, reviewable units rather than 200-line methods with six levels of nesting.
+
+The `if err != nil` pattern gets more criticism than almost anything else in Go. It’s verbose. It’s repetitive. All true. But when AI is the author and you’re the reviewer, that verbosity becomes a feature:
+
+```python
+def load_config(path):
+    data = open(path).read()
+    return json.loads(data)["database"]["host"]
+
+# File missing? Bad JSON? Wrong structure?
+# Maybe a try/except somewhere catches it. Maybe not.
+```
+
+```go
+func loadConfig(path string) (string, error) {
+    data, err := os.ReadFile(path)
+    if err != nil {
+        return "", err
+    }
+
+    var cfg Config
+    if err := json.Unmarshal(data, &cfg); err != nil {
+        return "", err
+    }
+    return cfg.Database.Host, nil
+}
+```
+
+Every failure path is visible. If `err != nil` is missing after a function call, it’s a red flag you can see in the diff. You don’t need to reason about exception propagation or what some decorator might be swallowing three stack frames up.
+
+No operator overloading. No implicit conversions. No metaprogramming. `a + b` always means addition or string concatenation. Interfaces show up at the call site: if a function takes an `io.Reader`, the contract is clear without tracing a class hierarchy. When you review a Go diff, you’re reviewing *all* of the behavior, not just the parts the language lets you see.
+
+## The Practical Loop
+
+Beyond the language design, Go has practical properties that make the AI development loop faster.
+
+The standard library covers HTTP servers, JSON, crypto, testing, and more. LLMs are less likely to hallucinate fake packages when most needs are covered out of the box. Ask an AI to make an HTTP request in Python and it might reach for `requests`, `httpx`, `aiohttp`, or `urllib3`. In Go, it’s `net/http`. Always.
+
+Sub-second compilation enables tight generate-compile-test loops. The difference between a 200ms compile and a 30-second build is the difference between a productive AI agent and a frustrating one.
+
+Go compiles to a single static binary. No virtualenvs, no interpreters, no dependency resolution at deploy time. And the resource efficiency compounds: [Lovable cut from 200 server instances to 10](https://lovable.dev/blog/from-python-to-go) after migrating 42,000 lines of Python to Go. When AI makes it easier to spin up more services, the per-service cost of your runtime matters more, not less.
+
+## What About TypeScript?
+
+The closest counterargument is TypeScript. It has strict types, a single dominant formatter (Prettier), fast compiler feedback, and a massive training corpus. If you're building for the browser, TypeScript with AI works well for the same structural reasons Go does.
+
+But TypeScript inherits JavaScript's surface area. There are arrow functions and function declarations, callbacks and promises and async/await, classes and closures and plain objects, `import` and `require`. The type system is powerful but complex: conditional types, mapped types, template literal types, and inference rules that even experienced developers struggle to follow. An LLM can produce TypeScript that type-checks but is genuinely hard to review because the types themselves require interpretation.
+
+Go's advantage isn't that TypeScript is bad for AI. It's that Go is simpler to review, and review is the bottleneck. When AI writes the code, the language that's easiest to verify wins, and Go's smaller surface area makes verification faster.
+
+## The Language AI Deserves
+
+These qualities aren’t new. Simplicity, consistency, fast feedback, no magic: Go was designed with these from the beginning. They were always valuable. But they were competing against expressiveness and flexibility, things that matter when humans write every line.
+
+The calculus changed. When AI writes the code and humans review it, the language that restricts the author and exposes everything to the reader wins. The [Go team sees it](https://go.dev/blog/llmpowered), and it shows in practice: when I built the [xlsx formula engine](/posts/build-xlsx), over 400 functions were generated by AI, and the vast majority compiled and passed tests on the first or second attempt. The failures were almost always caught by `go build` or `go test` before I ever read the code. The generate-compile-fix loop in Go is tight enough that the AI can self-correct before the output reaches a human reviewer.
+
+That’s the real argument. It’s not that Go produces perfect AI-generated code. It’s that Go’s toolchain catches mistakes fast, its simplicity keeps the AI on a narrow path, and its verbosity means the reviewer can verify what’s left. The best language for AI-written code isn’t the most powerful one. It’s the one where you can trust what you’re reading.

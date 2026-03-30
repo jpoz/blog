@@ -36,6 +36,7 @@ export default defineConfig({
         "@/shortcodes/Youtube",
         "@/shortcodes/Tabs",
         "@/shortcodes/Tab",
+        "@/shortcodes/CodeCompare",
       ],
     }),
     mdx(),

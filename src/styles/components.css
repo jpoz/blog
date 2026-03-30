@@ -209,6 +209,19 @@
   @apply border-current;
 }
 
+/* code compare */
+.code-compare {
+  @apply grid grid-cols-1 gap-4 my-6 md:grid-cols-2;
+}
+
+.code-compare > :not(pre) {
+  @apply hidden;
+}
+
+.code-compare pre {
+  @apply m-0! h-full;
+}
+
 /* footer */
 footer p a {
   @apply transition-all duration-200 hover:text-white;
