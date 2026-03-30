@@ -3,7 +3,7 @@ title: Why we wrote our own XML/JSON parsers for LLMs
 meta_title: ""
 description: "meta description"
 date: 2025-01-06T05:00:00Z
-image: "/images/posts/02.png"
+image: "/images/posts/02.webp"
 categories: ["codez"]
 authors: ["jpoz"]
 tags: ["xml", "json", "go"]

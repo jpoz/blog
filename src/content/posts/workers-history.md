@@ -3,7 +3,7 @@ title: Who gets the money when machines get faster?
 meta_title: ""
 description: "What history's productivity revolutions tell us about AI and the future of software engineering"
 date: 2026-02-16T05:00:00Z
-image: "/images/posts/4C6F3CC7-283C-4DBD-A7FA-F5B57D53DDD6.png"
+image: "/images/posts/4C6F3CC7-283C-4DBD-A7FA-F5B57D53DDD6.webp"
 categories: ["thoughts"]
 authors: ["jpoz"]
 tags: ["ai"]

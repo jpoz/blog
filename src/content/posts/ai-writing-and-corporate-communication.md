@@ -3,7 +3,7 @@ title: "AI Writing Tools and the New Corporate Conversation"
 meta_title: ""
 description: "meta description"
 date: 2024-11-11T05:00:00Z
-image: "/images/posts/01.png"
+image: "/images/posts/01.webp"
 categories: ["thinking"]
 authors: ["jpoz"]
 tags: ["ai", "llms"]

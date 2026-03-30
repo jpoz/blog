@@ -1,7 +1,7 @@
 ---
 title: "I’m James, A software engineer based in Colorado, Currently at Angellist"
 meta_title: "About"
-image: "/images/author.png"
+image: "/images/author.webp"
 draft: false
 
 what_i_do:
